@@ -1,0 +1,45 @@
+<view class="page-shell">
+  <view class="page-width">
+    <view class="card">
+      <view class="section-title">我的练习轨迹</view>
+      <view class="section-caption">展示顺序练习与错题练习的历史记录。</view>
+      <view class="button-row">
+        <button
+          class="history-clear-button button-block"
+          loading="{{clearing}}"
+          disabled="{{loading || !history.length}}"
+          bindtap="confirmClearHistory"
+        >
+          一键清空历史记录
+        </button>
+      </view>
+
+      <block wx:if="{{loading}}">
+        <view class="empty-state">历史记录加载中...</view>
+      </block>
+
+      <block wx:elif="{{error}}">
+        <view class="empty-state">{{error}}</view>
+      </block>
+
+      <block wx:elif="{{!history.length}}">
+        <view class="empty-state">暂无练习记录</view>
+      </block>
+
+      <view wx:else>
+        <view class="history-row history-row--clickable" wx:for="{{history}}" wx:key="id" data-session-id="{{item.id}}" data-status="{{item.status}}" bindtap="openHistoryItem">
+          <view class="history-title">{{item.bank_name}} / {{item.bank_version}}</view>
+          <view class="tag-row">
+            <view class="{{item.statusClass}}">{{item.statusLabel}}</view>
+            <view class="status-tag">{{item.modeLabel}}</view>
+            <view class="status-tag">已答 {{item.answered_count}} / {{item.total_count}}</view>
+            <view class="tag">{{item.actionLabel}}</view>
+          </view>
+          <view class="meta-text">正确 {{item.correct_count}} 题 · 错误 {{item.wrong_count}} 题</view>
+          <view class="meta-text">开始时间：{{item.startedAtText}}</view>
+          <view class="meta-text">提交时间：{{item.submittedAtText}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

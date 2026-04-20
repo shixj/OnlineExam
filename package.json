@@ -1,0 +1,17 @@
+{
+  "name": "online-exam-platform",
+  "private": true,
+  "version": "0.1.0",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev:server": "npm --workspace apps/server run dev",
+    "dev:admin": "npm --workspace apps/admin run dev",
+    "dev:app": "npm --workspace apps/app run dev",
+    "build": "npm run build --workspaces --if-present",
+    "lint": "npm run lint --workspaces --if-present",
+    "test": "npm --workspace apps/server run test"
+  }
+}

@@ -1,0 +1,3 @@
+.page-shell {
+  background: linear-gradient(180deg, #dbeafe 0%, #eef3f8 42%, #eef3f8 100%);
+}

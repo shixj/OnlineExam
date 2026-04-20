@@ -1,0 +1,82 @@
+<view class="page-shell">
+  <view class="page-width">
+    <block wx:if="{{loading}}">
+      <view class="card">
+        <view class="empty-state">题库详情加载中...</view>
+      </view>
+    </block>
+
+    <block wx:elif="{{error}}">
+      <view class="card">
+        <view class="empty-state">{{error}}</view>
+      </view>
+    </block>
+
+    <block wx:elif="{{summary}}">
+      <view class="card">
+        <view class="section-title">{{summary.name}} / {{summary.version}}</view>
+        <view class="section-caption">支持顺序练习、专项练习、错题练习与继续上次练习。</view>
+
+        <view class="stat-grid">
+          <view class="stat-box">
+            <view class="stat-box__label">总题数</view>
+            <view class="stat-box__value">{{summary.totalCount}}</view>
+          </view>
+          <view class="stat-box">
+            <view class="stat-box__label">单选题</view>
+            <view class="stat-box__value">{{summary.singleCount}}</view>
+          </view>
+          <view class="stat-box">
+            <view class="stat-box__label">判断题</view>
+            <view class="stat-box__value">{{summary.judgeCount}}</view>
+          </view>
+          <view class="stat-box">
+            <view class="stat-box__label">待练错题</view>
+            <view class="stat-box__value">{{summary.unresolvedWrongCount}}</view>
+          </view>
+        </view>
+
+        <view class="button-row">
+          <button class="primary-button button-flex" loading="{{actionLoading==='normal'}}" bindtap="startNormalPractice">开始顺序练习</button>
+          <button class="bank-action-button bank-action-button--secondary button-flex" loading="{{actionLoading==='continue'}}" bindtap="continuePractice">继续上次练习</button>
+        </view>
+        <view class="button-row">
+          <button class="bank-action-button bank-action-button--warning button-flex" loading="{{actionLoading==='wrong'}}" bindtap="createWrongPractice">进入错题练习</button>
+          <button class="bank-action-button bank-action-button--ghost button-flex" bindtap="openWrongQuestions">查看错题库</button>
+        </view>
+      </view>
+
+      <view class="card">
+        <view class="section-title">分类分布</view>
+        <view class="section-caption">点击某个分类可直接开始专项练习。</view>
+
+        <block wx:if="{{!summary.categories.length}}">
+          <view class="empty-state">当前题库没有分类信息</view>
+        </block>
+
+        <view class="category-stack" wx:else>
+          <view class="category-card" wx:for="{{summary.categories}}" wx:key="category">
+            <view class="category-card__top">
+              <view class="category-row__info">
+                <view class="history-title">{{item.category}}</view>
+                <view class="meta-text category-row__meta">覆盖该分类下的全部题目</view>
+              </view>
+              <view class="category-count-badge">
+                <view class="category-count-badge__label">题目数</view>
+                <view class="category-count-badge__value">{{item.count}}</view>
+              </view>
+            </view>
+            <button
+              class="category-action-button"
+              data-category="{{item.category}}"
+              loading="{{actionLoading===item.loadingKey}}"
+              bindtap="startCategoryPractice"
+            >
+              进入专项练习
+            </button>
+          </view>
+        </view>
+      </view>
+    </block>
+  </view>
+</view>

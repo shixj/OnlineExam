@@ -1,0 +1,17 @@
+<view class="page-shell page-shell--center">
+  <view class="page-width">
+    <view class="card" style="max-width: 760rpx; margin: 0 auto;">
+      <view class="section-title">登录开始练习</view>
+
+      <view class="form-label">用户名</view>
+      <input class="form-field" value="{{form.username}}" data-field="username" placeholder="请输入用户名" bindinput="handleInput" />
+
+      <view class="form-label">密码</view>
+      <input class="form-field" value="{{form.password}}" data-field="password" password placeholder="请输入密码" bindinput="handleInput" />
+
+      <view class="button-row">
+        <button class="primary-button button-block" loading="{{submitting}}" bindtap="submitLogin">登录</button>
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,36 @@
+{
+  "pages": [
+    "pages/login/index",
+    "pages/home/index",
+    "pages/history/index",
+    "pages/bank/index",
+    "pages/practice/index",
+    "pages/wrong/index",
+    "pages/result/index"
+  ],
+  "window": {
+    "navigationBarTitleText": "在线考试练习",
+    "navigationBarBackgroundColor": "#f7f9fc",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#eef3f8",
+    "backgroundTextStyle": "dark"
+  },
+  "tabBar": {
+    "color": "#6b7280",
+    "selectedColor": "#1d4ed8",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/home/index",
+        "text": "题库"
+      },
+      {
+        "pagePath": "pages/history/index",
+        "text": "历史"
+      }
+    ]
+  },
+  "sitemapLocation": "sitemap.json",
+  "lazyCodeLoading": "requiredComponents"
+}

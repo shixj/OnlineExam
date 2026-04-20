@@ -1,0 +1,38 @@
+<view class="page-shell">
+  <view class="page-width">
+    <view class="card">
+      <view class="section-title">{{bankName}} 的错题库</view>
+      <view class="section-caption">仅展示当前仍未掌握的错题，可一键进入错题练习。</view>
+      <view class="button-row">
+        <button class="primary-button button-block" loading="{{actionLoading}}" bindtap="startWrongPractice">开始错题练习</button>
+      </view>
+    </view>
+
+    <view class="card">
+      <block wx:if="{{loading}}">
+        <view class="empty-state">错题列表加载中...</view>
+      </block>
+
+      <block wx:elif="{{error}}">
+        <view class="empty-state">{{error}}</view>
+      </block>
+
+      <block wx:elif="{{!wrongQuestions.length}}">
+        <view class="empty-state">当前没有待练习错题</view>
+      </block>
+
+      <view wx:else>
+        <view class="wrong-row" wx:for="{{wrongQuestions}}" wx:key="id">
+          <view class="wrong-title">{{item.question.stem}}</view>
+          <view class="tag-row">
+            <view class="tag">{{item.question.category}}</view>
+            <view class="tag">{{item.questionTypeLabel}}</view>
+          </view>
+          <view class="meta-text">错误次数：{{item.wrongCount}}</view>
+          <view class="meta-text">最近答错：{{item.lastWrongAtText}}</view>
+          <view class="meta-text">正确答案：{{item.correctAnswerText}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,83 @@
+<view class="page-shell">
+  <view class="page-width">
+    <view class="card hero-card">
+      <view class="hero-title">欢迎回来，{{user.realName || user.username}}</view>
+      <view class="hero-subtitle">选择一个已发布题库开始练习，也可以随时查看做题历史。</view>
+
+      <view class="stats-row">
+        <view class="stats-item">
+          <view class="stats-box">
+            <view class="stats-label">已发布题库</view>
+            <view class="stats-value">{{stats.bankCount}}</view>
+          </view>
+        </view>
+        <view class="stats-item">
+          <view class="stats-box">
+            <view class="stats-label">总题数</view>
+            <view class="stats-value">{{stats.totalQuestions}}</view>
+          </view>
+        </view>
+        <view class="stats-item">
+          <view class="stats-box">
+            <view class="stats-label">含错题题库</view>
+            <view class="stats-value">{{stats.activeCount}}</view>
+          </view>
+        </view>
+        <view class="stats-item">
+          <view class="stats-box">
+            <view class="stats-label">待练错题</view>
+            <view class="stats-value">{{stats.wrongCount}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="card">
+      <view class="section-title">快捷操作</view>
+      <view class="section-caption">查看做题记录，或安全退出当前账号。</view>
+
+      <view class="home-action-grid">
+        <view class="home-action-card home-action-card--history" bindtap="goHistory">
+          <view class="home-action-card__eyebrow">练习记录</view>
+          <view class="home-action-card__title">查看历史</view>
+          <view class="home-action-card__desc">回看已完成练习与作答结果</view>
+        </view>
+
+        <view class="home-action-card home-action-card--logout" bindtap="handleLogout">
+          <view class="home-action-card__eyebrow">账号管理</view>
+          <view class="home-action-card__title">退出登录</view>
+          <view class="home-action-card__desc">退出当前账号并返回登录页</view>
+        </view>
+      </view>
+    </view>
+
+    <view class="card">
+      <view class="section-title">题库列表</view>
+      <view class="section-caption">按题库进入详情页，可继续上次练习、专项练习或错题练习。</view>
+
+      <block wx:if="{{loading}}">
+        <view class="empty-state">题库加载中...</view>
+      </block>
+
+      <block wx:elif="{{error}}">
+        <view class="empty-state">{{error}}</view>
+      </block>
+
+      <block wx:elif="{{!banks.length}}">
+        <view class="empty-state">当前没有可练习的已发布题库</view>
+      </block>
+
+      <view class="list-stack" wx:else>
+        <view class="bank-card" wx:for="{{banks}}" wx:key="id" data-bank-id="{{item.id}}" bindtap="openBank">
+          <view class="bank-title">{{item.name}} / {{item.version}}</view>
+          <view class="bank-meta">总题数 {{item.totalCount}} · 单选 {{item.singleCount}} · 判断 {{item.judgeCount}}</view>
+          <view class="bank-meta">分类 {{item.categoryCount}} 个 · 待练错题 {{item.unresolvedWrongCount}} 题</view>
+          <view class="tag-row">
+            <view class="tag">进入详情</view>
+            <view class="tag tag--warning" wx:if="{{item.unresolvedWrongCount > 0}}">可练错题</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

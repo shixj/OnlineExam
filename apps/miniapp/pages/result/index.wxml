@@ -1,0 +1,33 @@
+<view class="page-shell">
+  <view class="page-width">
+    <view class="card hero-card">
+      <view class="hero-title">本次练习已完成</view>
+      <view class="hero-subtitle">答题结果已记录，可继续回到题库或查看历史。</view>
+    </view>
+
+    <view class="card" wx:if="{{result}}">
+      <view class="result-score">{{result.correct_count}} / {{result.total_count}}</view>
+      <view class="section-caption">共 {{result.total_count}} 题，答对 {{result.correct_count}} 题，答错 {{result.wrong_count}} 题。</view>
+
+      <view class="stat-grid">
+        <view class="stat-box">
+          <view class="stat-box__label">已答题数</view>
+          <view class="stat-box__value">{{result.answered_count}}</view>
+        </view>
+        <view class="stat-box">
+          <view class="stat-box__label">当前状态</view>
+          <view class="stat-box__value">{{result.statusLabel}}</view>
+        </view>
+      </view>
+
+      <view class="button-row">
+        <button class="primary-button button-flex" bindtap="backHome">返回题库</button>
+        <button class="ghost-button button-flex" bindtap="viewHistory">查看历史</button>
+      </view>
+    </view>
+
+    <view class="card" wx:else>
+      <view class="empty-state">暂无可展示的结果数据</view>
+    </view>
+  </view>
+</view>

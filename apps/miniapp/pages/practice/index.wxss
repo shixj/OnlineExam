@@ -1,0 +1,51 @@
+.primary-button {
+  min-height: 100rpx;
+  font-size: 32rpx;
+}
+
+.practice-feedback-card {
+  padding: 0;
+  overflow: hidden;
+}
+
+.submit-feedback {
+  margin-top: 0;
+  padding: 22rpx 24rpx;
+  border-radius: 28rpx;
+  background: #f8fafc;
+  border: none;
+  opacity: 0;
+  transform: translateY(-8rpx);
+  transition: opacity 0.32s ease, transform 0.32s ease;
+}
+
+.submit-feedback--success {
+  background: #f0fdf4;
+  border-color: #86efac;
+}
+
+.submit-feedback--error {
+  background: #fef2f2;
+  border-color: #fca5a5;
+}
+
+.submit-feedback--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.submit-feedback--hidden {
+  opacity: 0;
+  transform: translateY(-8rpx);
+}
+
+.submit-feedback__title {
+  font-size: 30rpx;
+  font-weight: 700;
+}
+
+.submit-feedback__line {
+  margin-top: 12rpx;
+  font-size: 26rpx;
+  color: #334155;
+}

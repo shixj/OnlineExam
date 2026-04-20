@@ -1,0 +1,90 @@
+<view class="page-shell">
+  <view class="page-width">
+    <block wx:if="{{loading}}">
+      <view class="card">
+        <view class="empty-state">题目加载中...</view>
+      </view>
+    </block>
+
+    <block wx:elif="{{currentQuestion}}">
+      <view class="card">
+        <view class="tag-row">
+          <view class="tag">{{currentQuestion.category}}</view>
+          <view class="tag">{{currentQuestion.questionTypeLabel}}</view>
+          <view class="tag" wx:if="{{currentQuestion.sourceNo}}">题号 {{currentQuestion.sourceNo}}</view>
+        </view>
+        <view class="section-title">第 {{currentQuestion.index}} / {{currentQuestion.total}} 题</view>
+        <view class="question-stem">{{currentQuestion.stem}}</view>
+      </view>
+
+      <view class="card">
+        <view class="section-title">选择答案</view>
+        <view class="option-list">
+          <view class="{{item.itemClass}}" wx:for="{{currentQuestion.options}}" wx:key="key" data-key="{{item.key}}" bindtap="selectAnswer">
+            <view class="option-key">{{item.key}}</view>
+            <view class="option-text">{{item.text}}</view>
+          </view>
+        </view>
+      </view>
+
+      <view class="card practice-feedback-card" wx:if="{{submitFeedback}}">
+        <view class="{{submitFeedbackClass}}">
+          <view class="{{submitFeedback.titleClass}}">第 {{submitFeedback.questionLabel}} 题 {{submitFeedback.title}}</view>
+          <view class="submit-feedback__line">
+            你的答案：
+            <text class="{{submitFeedback.isCorrect ? 'answer-correct' : 'answer-wrong'}}">{{submitFeedback.answeredText}}</text>
+          </view>
+          <view class="submit-feedback__line">
+            正确答案：
+            <text class="answer-correct">{{submitFeedback.correctAnswerText}}</text>
+          </view>
+        </view>
+      </view>
+
+      <view class="card">
+        <view class="section-title">题号进度</view>
+        <view class="section-caption">绿色表示答对，红色表示答错，点击已做题号可查看你的答案和正确答案。</view>
+
+        <view class="review-panel" wx:if="{{reviewVisible && reviewQuestion}}">
+          <view class="tag-row">
+            <view class="tag">{{reviewQuestion.question.category}}</view>
+            <view class="tag">{{reviewQuestion.questionTypeLabel}}</view>
+          </view>
+          <view class="question-stem" style="margin-top: 12rpx; font-size: 30rpx;">{{reviewQuestion.question.stem}}</view>
+          <view class="option-list">
+            <view class="meta-text" wx:for="{{reviewQuestion.question.options}}" wx:key="key">{{item.key}}. {{item.text}}</view>
+          </view>
+          <view class="review-answer">
+            你的答案：
+            <text class="{{reviewQuestion.userAnswerClass}}">{{reviewQuestion.userAnswerText}}</text>
+          </view>
+          <view class="review-answer">
+            正确答案：
+            <text class="answer-correct">{{reviewQuestion.correctAnswerText}}</text>
+          </view>
+          <view class="button-row">
+            <button class="ghost-button button-flex" bindtap="closeReview">关闭回看</button>
+          </view>
+        </view>
+
+        <view class="tag-row">
+          <view class="status-tag status-tag--active">当前题</view>
+          <view class="status-tag status-tag--success">答对</view>
+          <view class="status-tag status-tag--warning">答错</view>
+          <view class="status-tag">未做</view>
+        </view>
+        <view class="meta-text">已做 {{progress.answeredCount}} / {{progress.totalCount}}</view>
+
+        <view class="tracker-grid">
+          <button class="{{item.itemClass}}" wx:for="{{progress.items}}" wx:key="questionId" data-question-id="{{item.questionId}}" data-answered="{{item.isAnswered}}" bindtap="reviewAnsweredQuestion">
+            {{item.label}}
+          </button>
+        </view>
+      </view>
+
+      <view class="sticky-submit">
+        <button class="primary-button button-block" loading="{{submitting}}" bindtap="submitAnswer">提交答案</button>
+      </view>
+    </block>
+  </view>
+</view>
